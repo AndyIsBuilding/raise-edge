@@ -1,0 +1,86 @@
+/* App.css - Additional styles for the app */
+
+/* Ensure the app takes up the full height of the viewport */
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Better button hover effects for generic buttons */
+button:not(.button-primary):not(.button-secondary):not(.button-accent):hover {
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Card animations */
+.card {
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  z-index: 10;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Table styling */
+.poker-table {
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Glass-like containers for dark UI */
+.glass-container {
+  background: rgba(30, 30, 30, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  .poker-table {
+    transform: scale(0.95);
+  }
+  
+  /* Tighter spacing for mobile */
+  .glass-container {
+    margin-bottom: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .poker-table {
+    transform: scale(0.82);
+  }
+  
+  /* Reduce vertical spacing */
+  .glass-container {
+    margin-bottom: 8px;
+    padding: 10px;
+  }
+  
+  /* Minimize header spacing */
+  header {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+  }
+} 

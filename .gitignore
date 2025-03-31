@@ -1,0 +1,35 @@
+# Dependencies
+/node_modules
+
+# Build files
+/dist
+/build
+tsconfig.node.tsbuildinfo
+tsconfig.tsbuildinfo
+vite.config.d.ts 
+vite.config.js
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+
+# Environment variables
+.env.local
+
+
+# Backup filesf
+/backup
+
+# Project Docs 
+project_docs/

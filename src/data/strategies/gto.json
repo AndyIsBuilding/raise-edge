@@ -1,0 +1,972 @@
+{
+  "strategies": [
+    {
+      "id": 1,
+      "name": "GTO",
+      "description": "Game Theory Optimal ranges for full ring (8-handed) and 6-handed tables",
+      "author": "PokerTrainer",
+      "createdDate": "2025-03-20"
+    }
+  ],
+  "positions": {
+    "8handed": [
+      {
+        "id": 1,
+        "name": "UTG",
+        "displayName": "UTG",
+        "orderIndex": 1,
+        "tableSize": 8,
+        "description": "Under the Gun - First to act"
+      },
+      {
+        "id": 2,
+        "name": "UTG1",
+        "displayName": "UTG+1",
+        "orderIndex": 2,
+        "tableSize": 8,
+        "description": "Under the Gun+1 - Second to act"
+      },
+      {
+        "id": 3,
+        "name": "LJ",
+        "displayName": "LJ",
+        "orderIndex": 3,
+        "tableSize": 8,
+        "description": "Lojack"
+      },
+      {
+        "id": 4,
+        "name": "HJ",
+        "displayName": "HJ",
+        "orderIndex": 4,
+        "tableSize": 8,
+        "description": "Hijack"
+      },
+      {
+        "id": 5,
+        "name": "CO",
+        "displayName": "CO",
+        "orderIndex": 5,
+        "tableSize": 8,
+        "description": "Cutoff"
+      },
+      {
+        "id": 6,
+        "name": "BTN",
+        "displayName": "BTN",
+        "orderIndex": 6,
+        "tableSize": 8,
+        "description": "Button - Dealer"
+      },
+      {
+        "id": 7,
+        "name": "SB",
+        "displayName": "SB",
+        "orderIndex": 7,
+        "tableSize": 8,
+        "description": "Small Blind"
+      },
+      {
+        "id": 8,
+        "name": "BB",
+        "displayName": "BB",
+        "orderIndex": 8,
+        "tableSize": 8,
+        "description": "Big Blind"
+      }
+    ],
+    "6handed": [
+      {
+        "id": 9,
+        "name": "LJ",
+        "displayName": "LJ",
+        "orderIndex": 1,
+        "tableSize": 6,
+        "description": "Lojack - First to act"
+      },
+      {
+        "id": 10,
+        "name": "HJ",
+        "displayName": "HJ",
+        "orderIndex": 2,
+        "tableSize": 6,
+        "description": "Hijack"
+      },
+      {
+        "id": 11,
+        "name": "CO",
+        "displayName": "CO",
+        "orderIndex": 3,
+        "tableSize": 6,
+        "description": "Cutoff"
+      },
+      {
+        "id": 12,
+        "name": "BTN",
+        "displayName": "BTN",
+        "orderIndex": 4,
+        "tableSize": 6,
+        "description": "Button - Dealer"
+      },
+      {
+        "id": 13,
+        "name": "SB",
+        "displayName": "SB",
+        "orderIndex": 5,
+        "tableSize": 6,
+        "description": "Small Blind"
+      }
+    ]
+  },
+  "ranges": {
+    "GTO": {
+      "hands": {
+        "22": {
+          "raise": true,
+          "earliestPosition8max": "CO",
+          "earliestPosition6max": "CO"
+        },
+        "33": {
+          "raise": true,
+          "earliestPosition8max": "CO",
+          "earliestPosition6max": "CO"
+        },
+        "44": {
+          "raise": true,
+          "earliestPosition8max": "HJ",
+          "earliestPosition6max": "HJ"
+        },
+        "55": {
+          "raise": true,
+          "earliestPosition8max": "LJ",
+          "earliestPosition6max": "LJ"
+        },
+        "66": {
+          "raise": true,
+          "earliestPosition8max": "LJ",
+          "earliestPosition6max": "LJ"
+        },
+        "77": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "88": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "99": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "AA": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "KK": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "QQ": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "JJ": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "TT": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "AKs": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "AKo": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "AQs": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "AQo": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "AJs": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "AJo": {
+          "raise": true,
+          "earliestPosition8max": "UTG1",
+          "earliestPosition6max": "LJ"
+        },
+        "ATs": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "ATo": {
+          "raise": true,
+          "earliestPosition8max": "HJ",
+          "earliestPosition6max": "HJ"
+        },
+        "A9s": {
+          "raise": true,
+          "earliestPosition8max": "LJ",
+          "earliestPosition6max": "LJ"
+        },
+        "A9o": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "A8s": {
+          "raise": true,
+          "earliestPosition8max": "UTG1",
+          "earliestPosition6max": "LJ"
+        },
+        "A8o": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "A7s": {
+          "raise": true,
+          "earliestPosition8max": "LJ",
+          "earliestPosition6max": "LJ"
+        },
+        "A7o": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "A6s": {
+          "raise": true,
+          "earliestPosition8max": "LJ",
+          "earliestPosition6max": "LJ"
+        },
+        "A6o": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "A5s": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "A5o": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "A4s": {
+          "raise": true,
+          "earliestPosition8max": "UTG1",
+          "earliestPosition6max": "LJ"
+        },
+        "A4o": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "A3s": {
+          "raise": true,
+          "earliestPosition8max": "LJ",
+          "earliestPosition6max": "LJ"
+        },
+        "A3o": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "A2s": {
+          "raise": true,
+          "earliestPosition8max": "LJ",
+          "earliestPosition6max": "LJ"
+        },
+        "A2o": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "KQs": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "KQo": {
+          "raise": true,
+          "earliestPosition8max": "LJ",
+          "earliestPosition6max": "LJ"
+        },
+        "KJs": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "KJo": {
+          "raise": true,
+          "earliestPosition8max": "HJ",
+          "earliestPosition6max": "HJ"
+        },
+        "KTs": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "KTo": {
+          "raise": true,
+          "earliestPosition8max": "CO",
+          "earliestPosition6max": "CO"
+        },
+        "K9s": {
+          "raise": true,
+          "earliestPosition8max": "UTG1",
+          "earliestPosition6max": "LJ"
+        },
+        "K9o": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "K8s": {
+          "raise": true,
+          "earliestPosition8max": "CO",
+          "earliestPosition6max": "CO"
+        },
+        "K8o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "K7s": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "K7o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "K6s": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "K6o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "K5s": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "K5o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "K4s": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "K4o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "K3s": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "K3o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "K2s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "K2o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "QJs": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "QJo": {
+          "raise": true,
+          "earliestPosition8max": "HJ",
+          "earliestPosition6max": "HJ"
+        },
+        "QTs": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "QTo": {
+          "raise": true,
+          "earliestPosition8max": "CO",
+          "earliestPosition6max": "CO"
+        },
+        "Q9s": {
+          "raise": true,
+          "earliestPosition8max": "UTG1",
+          "earliestPosition6max": "LJ"
+        },
+        "Q9o": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "Q8s": {
+          "raise": true,
+          "earliestPosition8max": "CO",
+          "earliestPosition6max": "CO"
+        },
+        "Q8o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "Q7s": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "Q7o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "Q6s": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "Q6o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "Q5s": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "Q5o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "Q4s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "Q4o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "Q3s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "Q3o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "Q2s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "Q2o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "JTs": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "JTo": {
+          "raise": true,
+          "earliestPosition8max": "CO",
+          "earliestPosition6max": "CO"
+        },
+        "J9s": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "J9o": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "J8s": {
+          "raise": true,
+          "earliestPosition8max": "CO",
+          "earliestPosition6max": "CO"
+        },
+        "J8o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "J7s": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "J7o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "J6s": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "J6o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "J5s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "J5o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "J4s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "J4o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "J3s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "J3o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "J2s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "J2o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "T9s": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "T9o": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "T8s": {
+          "raise": true,
+          "earliestPosition8max": "LJ",
+          "earliestPosition6max": "LJ"
+        },
+        "T8o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "T7s": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "T7o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "T6s": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "T6o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "T5s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "T5o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "T4s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "T4o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "T3s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "T3o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "T2s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "T2o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "98s": {
+          "raise": true,
+          "earliestPosition8max": "UTG",
+          "earliestPosition6max": "LJ"
+        },
+        "98o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "97s": {
+          "raise": true,
+          "earliestPosition8max": "HJ",
+          "earliestPosition6max": "HJ"
+        },
+        "97o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "96s": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "96o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "95s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "95o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "94s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "94o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "93s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "93o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "92s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "92o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "87s": {
+          "raise": true,
+          "earliestPosition8max": "LJ",
+          "earliestPosition6max": "LJ"
+        },
+        "87o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "86s": {
+          "raise": true,
+          "earliestPosition8max": "CO",
+          "earliestPosition6max": "CO"
+        },
+        "86o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "85s": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "85o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "84s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "84o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "83s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "83o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "82s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "82o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "76s": {
+          "raise": true,
+          "earliestPosition8max": "LJ",
+          "earliestPosition6max": "LJ"
+        },
+        "76o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "75s": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "75o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "74s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "74o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "73s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "73o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "72s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "72o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "65s": {
+          "raise": true,
+          "earliestPosition8max": "HJ",
+          "earliestPosition6max": "HJ"
+        },
+        "65o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "64s": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "64o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "63s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "63o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "62s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "62o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "54s": {
+          "raise": true,
+          "earliestPosition8max": "CO",
+          "earliestPosition6max": "CO"
+        },
+        "54o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "53s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "53o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "52s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "52o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "43s": {
+          "raise": true,
+          "earliestPosition8max": "BTN",
+          "earliestPosition6max": "BTN"
+        },
+        "43o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "42s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "42o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "32s": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        },
+        "32o": {
+          "raise": false,
+          "earliestPosition8max": null,
+          "earliestPosition6max": null
+        }
+      }
+    }
+  }
+}
