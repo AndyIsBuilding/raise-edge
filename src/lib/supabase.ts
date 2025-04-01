@@ -21,13 +21,6 @@ const isValidConfig = Boolean(
   isValidUrl(supabaseUrl)
 );
 
-console.log('Environment variables:', {
-  supabaseUrl: supabaseUrl ? 'present' : 'missing',
-  supabaseAnonKey: supabaseAnonKey ? 'present' : 'missing',
-  isValidUrl: supabaseUrl ? isValidUrl(supabaseUrl) : false,
-  urlValue: supabaseUrl ? supabaseUrl : 'missing'
-});
-
 if (!isValidConfig) {
   console.warn('Invalid Supabase configuration. Running in local-only mode.');
 }
@@ -37,7 +30,6 @@ let supabaseClient: SupabaseClient;
 
 try {
   if (isValidConfig) {
-    console.log('Creating real Supabase client...');
     supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
       auth: {
         persistSession: true,
@@ -45,9 +37,7 @@ try {
         detectSessionInUrl: false
       }
     });
-    console.log('Real Supabase client created successfully');
   } else {
-    console.log('Creating mock Supabase client...');
     supabaseClient = createClient('http://localhost:54321', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMmYTn_I0', {
       auth: {
         persistSession: false,
@@ -55,16 +45,11 @@ try {
         detectSessionInUrl: false
       }
     });
-    console.log('Mock Supabase client created successfully');
   }
 } catch (error) {
   console.error('Error creating Supabase client:', error);
   throw error;
 }
 
-console.log('Supabase client initialized:', {
-  isConfigured: isValidConfig,
-  clientType: isValidConfig ? 'real' : 'mock'
-});
 
 export const supabase = supabaseClient;

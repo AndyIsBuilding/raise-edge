@@ -76,11 +76,7 @@ export const sessionStorage = {
     currentSession.raisePercentage = currentSession.score.total > 0
       ? Math.round((raisedHandsCount / currentSession.score.total) * 100)
       : 0;
-    
-    console.log('==== RAISE PERCENTAGE CALCULATION ====');
-    console.log('Total hands:', currentSession.score.total);
-    console.log('Raised hands:', raisedHandsCount);
-    console.log('Raise percentage:', currentSession.raisePercentage + '%');
+
     
     window.sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(currentSession));
     return currentSession;

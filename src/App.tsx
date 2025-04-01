@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { TableSize } from './types';
 import GameSession from './components/GameSession';
 import SessionSummary from './components/SessionSummary';
@@ -25,21 +25,20 @@ const App: React.FC = () => {
   const [isInitialized, setIsInitialized] = useState<boolean>(false);
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
   const [authError, setAuthError] = useState<string | null>(null);
+  const hasProcessedMigrationRef = useRef<boolean>(false);
+  const migrationInProgressRef = useRef<boolean>(false);
+  const migrationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lastSignInTimeRef = useRef<number>(0);
+  const DEBOUNCE_DELAY = 1000; // 1 second debounce
   const strategy = 'gto';
 
   useEffect(() => {
-    console.log('App component mounted');
     
     // Check if Supabase is configured
     const isConfigured = Boolean(
       import.meta.env.VITE_SUPABASE_URL && 
       import.meta.env.VITE_SUPABASE_ANON_KEY
     );
-    console.log('Supabase configuration check:', { 
-      isConfigured,
-      hasUrl: Boolean(import.meta.env.VITE_SUPABASE_URL),
-      hasKey: Boolean(import.meta.env.VITE_SUPABASE_ANON_KEY)
-    });
     setIsSupabaseConfigured(isConfigured);
 
     let subscription: { unsubscribe: () => void };
@@ -47,32 +46,59 @@ const App: React.FC = () => {
     const initializeAuth = async () => {
       if (isConfigured) {
         try {
-          console.log('Initializing Supabase auth...');
-          const { data: { session }, error } = await supabase.auth.getSession();
-          console.log('Initial session check:', { 
-            hasSession: Boolean(session),
-            error: error?.message,
-            userId: session?.user?.id
-          });
+          const { data: { session } } = await supabase.auth.getSession();
           setSession(session);
 
           // Set up auth state change subscription
           const { data: { subscription: authSubscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
-            // Skip INITIAL_SESSION events as we already have the session
-            if (_event === 'INITIAL_SESSION') return;
+            const currentTime = Date.now();
 
-            console.log('Auth state changed:', { 
-              event: _event,
-              hasSession: Boolean(session),
-              userId: session?.user?.id
-            });
+            // Reset migration flags when user signs out
+            if (_event === 'SIGNED_OUT') {
+              hasProcessedMigrationRef.current = false;
+              migrationInProgressRef.current = false;
+              if (migrationTimeoutRef.current) {
+                clearTimeout(migrationTimeoutRef.current);
+                migrationTimeoutRef.current = null;
+              }
+            }
+
+            // Skip INITIAL_SESSION events as we already have the session
+            if (_event === 'INITIAL_SESSION') {
+              return;
+            }
+
             setSession(session);
             setShowAuth(false);
 
-            // If user just signed in, check for local notes to migrate
+            // If user just signed in and we haven't processed migration yet
             if (_event === 'SIGNED_IN') {
-              console.log('User signed in, checking for local notes to migrate...');
-              await migrateLocalNotesToSupabase();
+              // Update last sign in time
+              lastSignInTimeRef.current = currentTime;
+
+              // Clear any existing timeout
+              if (migrationTimeoutRef.current) {
+                clearTimeout(migrationTimeoutRef.current);
+              }
+
+              // Set a new timeout to process the migration
+              migrationTimeoutRef.current = setTimeout(async () => {
+                if (!hasProcessedMigrationRef.current && !migrationInProgressRef.current) {
+                  migrationInProgressRef.current = true;
+                  
+                  try {
+                    await migrateLocalNotesToSupabase();
+                    hasProcessedMigrationRef.current = true;
+                  } catch (error) {
+                    console.error('Error during migration:', error);
+                    // Reset flags on error to allow retry
+                    migrationInProgressRef.current = false;
+                    hasProcessedMigrationRef.current = false;
+                  }
+                } else {
+                  console.log('Skipping migration - already processed or in progress');
+                }
+              }, DEBOUNCE_DELAY);
             }
           });
 
@@ -93,9 +119,11 @@ const App: React.FC = () => {
 
     // Cleanup function
     return () => {
-      console.log('Cleaning up auth subscription');
       if (subscription) {
         subscription.unsubscribe();
+      }
+      if (migrationTimeoutRef.current) {
+        clearTimeout(migrationTimeoutRef.current);
       }
     };
   }, []); // Empty dependency array to run only once
@@ -112,7 +140,6 @@ const App: React.FC = () => {
 
   // Don't render anything until initialization is complete
   if (!isInitialized) {
-    console.log('App not yet initialized, showing loading screen');
     return (
       <div className="w-full min-h-screen text-gray-200 flex items-center justify-center">
         <div className="text-xl">Loading...</div>
@@ -133,20 +160,6 @@ const App: React.FC = () => {
         </button>
       </div>
     );
-  }
-
-  // Log current state when rendering (only in development)
-  if (import.meta.env.DEV) {
-    console.log('App rendering with state:', {
-      isGameStarted,
-      showSessionSummary,
-      showPlayerNotes,
-      showAuth,
-      isSupabaseConfigured,
-      hasSession: Boolean(session),
-      isInitialized,
-      authMode
-    });
   }
 
   // Return to main menu
@@ -208,8 +221,6 @@ const App: React.FC = () => {
   const handleLogout = async () => {
     try {
       await supabase.auth.signOut();
-      // Session state will be automatically updated by the auth subscription
-      console.log('User logged out successfully');
     } catch (error) {
       console.error('Error logging out:', error);
     }

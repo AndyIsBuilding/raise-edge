@@ -56,24 +56,19 @@ const PlayerNoteModal: React.FC<PlayerNoteModalProps> = ({
         setIsLoading(true);
         try {
           const { data: { user } } = await supabase.auth.getUser();
-          console.log('Auth state:', user ? 'authenticated' : 'not authenticated');
           
           let notes: PlayerNote[] = [];
           if (user) {
             // Fetch from Supabase if authenticated
             notes = await playerNotesService.getUserNotes(user.id);
-            console.log('Fetched notes from Supabase:', notes);
           } else {
             // Fetch from localStorage if not authenticated
             const localNotes = localStorage.getItem('playerNotes');
-            console.log('Raw localStorage notes:', localNotes);
             if (localNotes) {
               notes = JSON.parse(localNotes);
-              console.log('Parsed localStorage notes:', notes);
             }
           }
           
-          console.log('Setting existing players:', notes);
           setExistingPlayers(Array.isArray(notes) ? notes : []);
           
           // Load existing note if editing

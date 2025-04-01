@@ -28,7 +28,6 @@ const PokerTable: React.FC = () => {
       // Get current user
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        console.log('No user logged in, skipping note fetch');
         return;
       }
 

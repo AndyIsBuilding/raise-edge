@@ -26,13 +26,13 @@ class PlayerNotesService {
       const { data: { user } } = await supabase.auth.getUser();
       
       if (user) {
-        // First check if the note exists
-        const { data: existingNote, error: fetchError } = await supabase
+        
+        // First check if the note exists using a simpler query
+        const { data: existingNotes, error: fetchError } = await supabase
           .from('player_notes')
-          .select('*')
+          .select('id')
           .eq('username', note.username)
-          .eq('user_id', user.id)
-          .single();
+          .eq('user_id', user.id);
 
         if (fetchError && fetchError.code !== 'PGRST116') { // PGRST116 is "no rows returned"
           console.error('Error checking for existing note:', fetchError);
@@ -40,7 +40,7 @@ class PlayerNotesService {
         }
 
         let result;
-        if (existingNote) {
+        if (existingNotes && existingNotes.length > 0) {
           // Update existing note
           const { data, error: updateError } = await supabase
             .from('player_notes')
@@ -51,7 +51,7 @@ class PlayerNotesService {
             })
             .eq('username', note.username)
             .eq('user_id', user.id)
-            .select()
+            .select('id, username, note, vpip_pfr, color, created_at, updated_at')
             .single();
 
           if (updateError) {
@@ -68,7 +68,7 @@ class PlayerNotesService {
               user_id: user.id,
               updated_at: new Date().toISOString()
             })
-            .select()
+            .select('id, username, note, vpip_pfr, color, created_at, updated_at')
             .single();
 
           if (insertError) {
