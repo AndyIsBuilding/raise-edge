@@ -4,6 +4,30 @@ import { getPositionsForTableSize } from '../utils/position';
 import { playerNotesService } from '../services/playerNotesService';
 import { supabase } from '../lib/supabase';
 
+// Add mobile detection hook
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      // Check if device has touch capability
+      const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      
+      // Check user agent for mobile devices
+      const userAgent = navigator.userAgent || navigator.vendor;
+      const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
+      
+      setIsMobile(hasTouch && isMobileUA);
+    };
+
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
+
+  return isMobile;
+};
+
 interface PlayerNotesTableProps {
   tableSize: TableSize;
   onOpenNoteModal: (position: PositionName, existingUsername?: string) => void;
@@ -22,6 +46,7 @@ const PlayerNotesTable: React.FC<PlayerNotesTableProps> = ({
 }) => {
   const [positions, setPositions] = useState<PositionData[]>([]);
   const [hoveredPosition, setHoveredPosition] = useState<PositionName | null>(null);
+  const isMobile = useIsMobile();
   
   // Update positions when table size changes or notes are updated
   useEffect(() => {
@@ -237,6 +262,35 @@ const PlayerNotesTable: React.FC<PlayerNotesTableProps> = ({
             onMouseLeave={handleMouseLeave}
           >
             <div className="flex flex-col items-center">
+              {/* Player name and VPIP/PFR display - moved above position circle */}
+              {position.playerNote && (
+                <div 
+                  className="text-center text-white text-xs sm:text-sm whitespace-nowrap bg-black/70 px-2 py-1 rounded shadow-md z-20 mb-2"
+                  style={{ minWidth: '70px' }}
+                >
+                  <div className="font-medium flex items-center gap-1">
+                    {position.playerNote.username}
+                    {/* Info icon for mobile - only visible on mobile devices */}
+                    {isMobile && (
+                      <button 
+                        className="text-xs bg-zinc-700 rounded-full w-4 h-4 flex items-center justify-center hover:bg-zinc-600"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setHoveredPosition(position.name);
+                        }}
+                      >
+                        i
+                      </button>
+                    )}
+                  </div>
+                  {position.playerNote.vpip_pfr && (
+                    <div className="text-xs font-mono mt-0.5">
+                      {position.playerNote.vpip_pfr}
+                    </div>
+                  )}
+                </div>
+              )}
+              
               <div 
                 className={`
                   relative flex flex-col items-center justify-center
@@ -258,39 +312,51 @@ const PlayerNotesTable: React.FC<PlayerNotesTableProps> = ({
                   <div className="absolute -bottom-1 -right-1 bg-white w-3 h-3 rounded-full"></div>
                 )}
               </div>
-              
-              {/* Player name and VPIP/PFR display */}
-              {position.playerNote && (
-                <div 
-                  className="absolute top-[105%] text-center text-white text-xs sm:text-sm whitespace-nowrap bg-black/70 px-2 py-1 rounded shadow-md z-20"
-                  style={{ minWidth: '70px' }}
-                >
-                  <div className="font-medium">
-                    {position.playerNote.username}
-                  </div>
-                  {position.playerNote.vpip_pfr && (
-                    <div className="text-xs font-mono mt-0.5">
-                      {position.playerNote.vpip_pfr}
-                    </div>
-                  )}
-                </div>
-              )}
             </div>
           </div>
         ))}
 
-        {/* Tooltip container - moved outside of seat containers */}
-        {hoveredPosition && positions.find(p => p.name === hoveredPosition)?.playerNote && (
+        {/* Tooltip container - only show on desktop */}
+        {hoveredPosition && positions.find(p => p.name === hoveredPosition)?.playerNote && !isMobile && (
           <div 
-            className="absolute z-50"
+            className="absolute z-50 pointer-events-none"
             style={{
-              left: `${positionStyles[hoveredPosition].left}`,
               top: `${positionStyles[hoveredPosition].top}`,
-              transform: 'translate(-50%, -50%)',
-              marginTop: '-80px' // Adjust this value to position the tooltip above the seat
+              transform: 'translate(-50%, -100%)',
+              marginTop: '-60px',
+              maxWidth: 'min(90vw, 300px)',
+              width: 'auto',
+              minWidth: '200px',
+              maxHeight: '30vh',
+              overflowY: 'auto',
+              left: `clamp(150px, ${positionStyles[hoveredPosition].left}, calc(100vw - 150px))`
             }}
           >
             {getTooltipContent(hoveredPosition)}
+          </div>
+        )}
+
+        {/* Mobile note modal - only show on mobile */}
+        {hoveredPosition && positions.find(p => p.name === hoveredPosition)?.playerNote && isMobile && (
+          <div 
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75"
+            onClick={() => setHoveredPosition(null)}
+          >
+            <div 
+              className="w-full max-w-sm bg-zinc-900 text-white p-4 rounded-lg shadow-lg border border-zinc-700"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="text-lg font-bold">Player Note</h3>
+                <button 
+                  className="text-zinc-400 hover:text-white"
+                  onClick={() => setHoveredPosition(null)}
+                >
+                  ✕
+                </button>
+              </div>
+              {getTooltipContent(hoveredPosition)}
+            </div>
           </div>
         )}
       </div>

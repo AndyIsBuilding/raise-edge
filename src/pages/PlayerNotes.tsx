@@ -64,7 +64,7 @@ const PlayerNotes: React.FC<PlayerNotesProps> = ({ onLoginPrompt }) => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-1 py-4">
       <h1 className="text-3xl font-bold text-zinc-100 mb-8">Player Notes</h1>
       
       <div className="mb-8">
