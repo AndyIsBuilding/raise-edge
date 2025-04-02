@@ -262,10 +262,14 @@ const PlayerNotesTable: React.FC<PlayerNotesTableProps> = ({
             onMouseLeave={handleMouseLeave}
           >
             <div className="flex flex-col items-center">
-              {/* Player name and VPIP/PFR display - moved above position circle */}
+              {/* Player name and VPIP/PFR display - conditionally positioned based on table position */}
               {position.playerNote && (
                 <div 
-                  className="text-center text-white text-xs sm:text-sm whitespace-nowrap bg-black/70 px-2 py-1 rounded shadow-md z-20 mb-2"
+                  className={`text-center text-white text-xs sm:text-sm whitespace-nowrap bg-black/70 px-2 py-1 rounded shadow-md z-20 ${
+                    (tableSize === 8 && position.name === 'CO') || (tableSize === 6 && position.name === 'BTN')
+                      ? 'mb-2' 
+                      : 'absolute top-[105%]'
+                  }`}
                   style={{ minWidth: '70px' }}
                 >
                   <div className="font-medium flex items-center gap-1">
