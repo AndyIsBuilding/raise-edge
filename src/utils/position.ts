@@ -6,19 +6,19 @@ export const positions: {
   '8handed': Position[];
 } = {
   '6handed': [
-    { id: 1, name: 'LJ', displayName: 'LJ', orderIndex: 1, tableSize: 6, description: 'Lojack - First to act' },
+    { id: 1, name: 'LJ', displayName: 'LJ', orderIndex: 1, tableSize: 6, description: "12 o'clock position" },
     { id: 2, name: 'HJ', displayName: 'HJ', orderIndex: 2, tableSize: 6, description: 'Hijack' },
     { id: 3, name: 'CO', displayName: 'CO', orderIndex: 3, tableSize: 6, description: 'Cutoff' },
-    { id: 4, name: 'BTN', displayName: 'BTN', orderIndex: 4, tableSize: 6, description: 'Button - Dealer' },
+    { id: 4, name: 'BTN', displayName: 'BTN', orderIndex: 4, tableSize: 6, description: "6 o'clock position" },
     { id: 5, name: 'SB', displayName: 'SB', orderIndex: 5, tableSize: 6, description: 'Small Blind' },
     { id: 6, name: 'BB', displayName: 'BB', orderIndex: 6, tableSize: 6, description: 'Big Blind' }
   ],
   '8handed': [
-    { id: 7, name: 'UTG', displayName: 'UTG', orderIndex: 1, tableSize: 8, description: 'Under the Gun - First to act' },
+    { id: 7, name: 'UTG', displayName: 'UTG', orderIndex: 1, tableSize: 8, description: "12 o'clock position" },
     { id: 8, name: 'UTG1', displayName: 'UTG+1', orderIndex: 2, tableSize: 8, description: 'Under the Gun+1' },
     { id: 9, name: 'LJ', displayName: 'LJ', orderIndex: 3, tableSize: 8, description: 'Lojack' },
     { id: 10, name: 'HJ', displayName: 'HJ', orderIndex: 4, tableSize: 8, description: 'Hijack' },
-    { id: 11, name: 'CO', displayName: 'CO', orderIndex: 5, tableSize: 8, description: 'Cutoff' },
+    { id: 11, name: 'CO', displayName: 'CO', orderIndex: 5, tableSize: 8, description: "6 o'clock position" },
     { id: 12, name: 'BTN', displayName: 'BTN', orderIndex: 6, tableSize: 8, description: 'Button - Dealer' },
     { id: 13, name: 'SB', displayName: 'SB', orderIndex: 7, tableSize: 8, description: 'Small Blind' },
     { id: 14, name: 'BB', displayName: 'BB', orderIndex: 8, tableSize: 8, description: 'Big Blind' }

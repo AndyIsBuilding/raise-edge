@@ -32,6 +32,7 @@ interface PlayerNotesTableProps {
   tableSize: TableSize;
   onOpenNoteModal: (position: PositionName, existingUsername?: string) => void;
   refreshKey?: number;
+  onPlayerRemoved?: () => void;
 }
 
 interface PositionData {
@@ -42,7 +43,8 @@ interface PositionData {
 const PlayerNotesTable: React.FC<PlayerNotesTableProps> = ({
   tableSize,
   onOpenNoteModal,
-  refreshKey: externalRefreshKey
+  refreshKey: externalRefreshKey,
+  onPlayerRemoved
 }) => {
   const [positions, setPositions] = useState<PositionData[]>([]);
   const [hoveredPosition, setHoveredPosition] = useState<PositionName | null>(null);
@@ -148,6 +150,35 @@ const PlayerNotesTable: React.FC<PlayerNotesTableProps> = ({
       console.error('Error parsing position mappings:', error);
     }
     return {};
+  };
+  
+  // Handle removing a player from a seat
+  const handleRemovePlayer = (e: React.MouseEvent, position: PositionName) => {
+    e.stopPropagation(); // Prevent opening modal
+    
+    try {
+      // Get current position mappings
+      let positionMappings = getPositionMappings();
+      
+      // Remove the mapping for this position
+      delete positionMappings[position];
+      localStorage.setItem('positionPlayerMapping', JSON.stringify(positionMappings));
+      
+      // Update UI
+      setPositions(positions.map(pos => {
+        if (pos.name === position) {
+          return { name: position, playerNote: undefined };
+        }
+        return pos;
+      }));
+      
+      // Notify parent component
+      if (onPlayerRemoved) {
+        onPlayerRemoved();
+      }
+    } catch (error) {
+      console.error('Error removing player from seat:', error);
+    }
   };
   
   // Handle hover to show notes tooltip
@@ -272,19 +303,37 @@ const PlayerNotesTable: React.FC<PlayerNotesTableProps> = ({
                   }`}
                   style={{ minWidth: '70px' }}
                 >
-                  <div className="font-medium flex items-center gap-1">
+                  <div className="font-medium flex items-center gap-1 relative">
                     {position.playerNote.username}
+                    {/* Remove button - visible on hover */}
+                    {!isMobile && hoveredPosition === position.name && (
+                      <button
+                        className="absolute -right-5 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-red-500 hover:bg-red-600 text-white text-xs"
+                        onClick={(e) => handleRemovePlayer(e, position.name)}
+                        title="Remove player from seat"
+                      >
+                        ×
+                      </button>
+                    )}
                     {/* Info icon for mobile - only visible on mobile devices */}
                     {isMobile && (
-                      <button 
-                        className="text-xs bg-zinc-700 rounded-full w-4 h-4 flex items-center justify-center hover:bg-zinc-600"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setHoveredPosition(position.name);
-                        }}
-                      >
-                        i
-                      </button>
+                      <div className="flex items-center gap-1">
+                        <button 
+                          className="text-xs bg-zinc-700 rounded-full w-4 h-4 flex items-center justify-center hover:bg-zinc-600"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setHoveredPosition(position.name);
+                          }}
+                        >
+                          i
+                        </button>
+                        <button 
+                          className="text-xs bg-red-600 rounded-full w-4 h-4 flex items-center justify-center hover:bg-red-700"
+                          onClick={(e) => handleRemovePlayer(e, position.name)}
+                        >
+                          ×
+                        </button>
+                      </div>
                     )}
                   </div>
                   {position.playerNote.vpip_pfr && (

@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { TableSize, PositionName } from '../types';
 import PlayerNotesTable from '../components/PlayerNotesTable';
 import PlayerNoteModal from '../components/PlayerNoteModal';
+import BulkPlayerEntryModal from '../components/BulkPlayerEntryModal';
 import { supabase } from '../lib/supabase';
 
 interface PlayerNotesProps {
@@ -11,6 +12,7 @@ interface PlayerNotesProps {
 const PlayerNotes: React.FC<PlayerNotesProps> = ({ onLoginPrompt }) => {
   const [tableSize, setTableSize] = useState<TableSize>(8);
   const [modalOpen, setModalOpen] = useState(false);
+  const [bulkModalOpen, setBulkModalOpen] = useState(false);
   const [selectedPosition, setSelectedPosition] = useState<PositionName | null>(null);
   const [existingUsername, setExistingUsername] = useState<string | undefined>(undefined);
   const [refreshKey, setRefreshKey] = useState(0);
@@ -27,11 +29,21 @@ const PlayerNotes: React.FC<PlayerNotesProps> = ({ onLoginPrompt }) => {
     setModalOpen(true);
   }, []);
   
+  // Open bulk player entry modal
+  const handleOpenBulkModal = () => {
+    setBulkModalOpen(true);
+  };
+  
   // Close the modal
   const handleCloseModal = () => {
     setModalOpen(false);
     setSelectedPosition(null);
     setExistingUsername(undefined);
+  };
+  
+  // Close bulk modal
+  const handleCloseBulkModal = () => {
+    setBulkModalOpen(false);
   };
   
   // Handle note save completion
@@ -41,6 +53,24 @@ const PlayerNotes: React.FC<PlayerNotesProps> = ({ onLoginPrompt }) => {
     
     // Notify user that note was saved
     showMessage('Player note saved!');
+  };
+
+  // Handle player removed from seat
+  const handlePlayerRemoved = () => {
+    // Increment refresh key to trigger PlayerNotesTable to fetch notes again
+    setRefreshKey(prev => prev + 1);
+    
+    // Notify user that player was removed
+    showMessage('Player removed from seat!');
+  };
+  
+  // Handle bulk players saved
+  const handleBulkPlayersSaved = () => {
+    // Increment refresh key to trigger PlayerNotesTable to fetch notes again
+    setRefreshKey(prev => prev + 1);
+    
+    // Notify user that players were saved
+    showMessage('Players added to table!');
   };
 
   const handleClearAllSeats = () => {
@@ -93,13 +123,22 @@ const PlayerNotes: React.FC<PlayerNotesProps> = ({ onLoginPrompt }) => {
             <label className="block text-zinc-300 font-bold mb-2 sm:mb-0 sm:mr-2">
               Table Controls
             </label>
-            <button
-              onClick={handleClearAllSeats}
-              className="px-4 py-2 rounded-md bg-red-600 hover:bg-red-700 text-white"
-              title="Clear all seats while preserving player notes"
-            >
-              Clear All Seats
-            </button>
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={handleOpenBulkModal}
+                className="px-4 py-2 rounded-md bg-teal-600 hover:bg-teal-700 text-white"
+                title="Add multiple players at once"
+              >
+                Add Multiple Players
+              </button>
+              <button
+                onClick={handleClearAllSeats}
+                className="px-4 py-2 rounded-md bg-red-600 hover:bg-red-700 text-white"
+                title="Clear all seats while preserving player notes"
+              >
+                Clear All Seats
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -122,6 +161,7 @@ const PlayerNotes: React.FC<PlayerNotesProps> = ({ onLoginPrompt }) => {
         tableSize={tableSize} 
         onOpenNoteModal={handleOpenNoteModal}
         refreshKey={refreshKey}
+        onPlayerRemoved={handlePlayerRemoved}
       />
       
       {modalOpen && selectedPosition && (
@@ -133,6 +173,13 @@ const PlayerNotes: React.FC<PlayerNotesProps> = ({ onLoginPrompt }) => {
           onSave={handleNoteSaved}
         />
       )}
+      
+      <BulkPlayerEntryModal
+        isOpen={bulkModalOpen}
+        onClose={handleCloseBulkModal}
+        tableSize={tableSize}
+        onSave={handleBulkPlayersSaved}
+      />
     </div>
   );
 };
